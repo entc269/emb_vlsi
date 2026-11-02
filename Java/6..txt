@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+            background: #f2f2f2;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e8f5e9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Shopping Cart Application</h2>
+
+    <label>Enter products separated by commas:</label>
+    <br>
+
+    <input type="text" id="products"
+        placeholder="Shirt, Shoes, Watch">
+
+    <button onclick="createCart()">Create Cart</button>
+
+    <hr>
+
+    <h3>Shopping Cart Operations</h3>
+
+    <input type="text" id="productName"
+        placeholder="Enter product name">
+
+    <br>
+
+    <button onclick="removeProduct()">Remove Product</button>
+
+    <button onclick="searchProduct()">Search Product</button>
+
+    <button onclick="emptyCart()">Empty Cart</button>
+
+    <div id="output">Enter products to create your cart.</div>
+
+</div>
+
+<script>
+
+    let cart = [];
+
+    // Create array from user input
+    function createCart() {
+
+        let input = document.getElementById("products").value;
+
+        if (input.trim() === "") {
+            alert("Please enter some products!");
+            return;
+        }
+
+        cart = input.split(",")
+                    .map(product => product.trim())
+                    .filter(product => product !== "");
+
+        displayCart();
+    }
+
+    // Display shopping cart
+    function displayCart() {
+
+        let output = document.getElementById("output");
+
+        if (cart.length === 0) {
+
+            output.innerHTML = "<b>Your cart is empty.</b>";
+
+        } else {
+
+            output.innerHTML =
+                "<b>Shopping Cart:</b><br>" +
+                cart.map((product, index) =>
+                    (index + 1) + ". " + product
+                ).join("<br>");
+        }
+    }
+
+    // Remove a specific product
+    function removeProduct() {
+
+        let name = document.getElementById("productName")
+                        .value.trim();
+
+        if (name === "") {
+            alert("Please enter a product name!");
+            return;
+        }
+
+        let index = cart.findIndex(
+            product => product.toLowerCase() === name.toLowerCase()
+        );
+
+        if (index !== -1) {
+
+            cart.splice(index, 1);
+            alert(name + " removed from cart.");
+
+        } else {
+
+            alert("Product not found!");
+
+        }
+
+        displayCart();
+    }
+
+    // Search for a product
+    function searchProduct() {
+
+        let name = document.getElementById("productName")
+                        .value.trim();
+
+        if (name === "") {
+            alert("Please enter a product name!");
+            return;
+        }
+
+        let found = cart.some(
+            product => product.toLowerCase() === name.toLowerCase()
+        );
+
+        if (found) {
+            alert(name + " is available in your cart.");
+        } else {
+            alert(name + " is not in your cart.");
+        }
+    }
+
+    // Empty the array
+    function emptyCart() {
+
+        cart.length = 0;
+
+        displayCart();
+
+        alert("Shopping cart emptied!");
+    }
+
+</script>
+
+</body>
+</html>

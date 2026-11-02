@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+</head>
+
+<body>
+
+    <h1>Welcome to My Website</h1>
+
+    <p>This is a paragraph.</p>
+
+    <a href="https://example.com">Visit Website</a>
+
+    <img src="image.jpg" alt="My Image">
+
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+    </ul>
+
+    <button>Click Me</button>
+
+</body>
+</html>
+
+
+________________________________________________________________________________
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area Calculation</title>
+</head>
+
+<body>
+
+    <h1>Area of Triangle, Rectangle and Circle</h1>
+
+    <h3>Area of Triangle</h3>
+
+    <label>Height:</label>
+    <input type="text" id="height">
+    <br><br>
+
+    <label>Base:</label>
+    <input type="text" id="base">
+    <br><br>
+
+    <h3>Area of Rectangle</h3>
+
+    <label>Length:</label>
+    <input type="text" id="length">
+    <br><br>
+
+    <label>Breadth:</label>
+    <input type="text" id="breadth">
+    <br><br>
+
+    <h3>Area of Circle</h3>
+
+    <label>Radius:</label>
+    <input type="text" id="radius">
+    <br><br>
+
+    <button onclick="calculate()">Calculate All Areas</button>
+
+    <p id="output"></p>
+
+    <script>
+
+        function calculate() {
+
+            var h = parseFloat(document.getElementById("height").value);
+            var b = parseFloat(document.getElementById("base").value);
+
+            var triangle = 0.5 * h * b;
+
+            var l = parseFloat(document.getElementById("length").value);
+            var br = parseFloat(document.getElementById("breadth").value);
+
+            var rectangle = l * br;
+
+            var r = parseFloat(document.getElementById("radius").value);
+
+            var circle = 3.14 * r * r;
+
+            document.getElementById("output").innerHTML =
+                "Area of Triangle = " + triangle + "<br>" +
+                "Area of Rectangle = " + rectangle + "<br>" +
+                "Area of Circle = " + circle;
+
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Student Course Registration</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f0f4f8;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        input, button {
+            width: 95%;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        button {
+            cursor: pointer;
+            background: #dbeafe;
+            border: none;
+        }
+
+        #output {
+            background: #ecfdf5;
+            padding: 15px;
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Student Course Registration</h2>
+
+    <label>Courses selected by Student A:</label>
+
+    <input id="courseA" type="text"
+        placeholder="Java, Python, DBMS">
+
+    <label>Courses selected by Student B:</label>
+
+    <input id="courseB" type="text"
+        placeholder="Python, CN, DBMS">
+
+    <button onclick="calculateSets()">Calculate Set Operations</button>
+
+    <div id="output">Enter the courses and click the button.</div>
+
+</div>
+
+<script>
+
+function calculateSets() {
+
+    // Read input and create sets
+    let A = new Set(
+        document.getElementById("courseA").value
+        .split(",")
+        .map(x => x.trim())
+        .filter(x => x !== "")
+    );
+
+    let B = new Set(
+        document.getElementById("courseB").value
+        .split(",")
+        .map(x => x.trim())
+        .filter(x => x !== "")
+    );
+
+    if (A.size === 0 || B.size === 0) {
+
+        alert("Please enter courses for both students!");
+
+        return;
+    }
+
+    // Union
+    let union = new Set([...A, ...B]);
+
+    // Intersection
+    let intersection = new Set(
+        [...A].filter(x => B.has(x))
+    );
+
+    // Difference
+    let difference = new Set(
+        [...A].filter(x => !B.has(x))
+    );
+
+    // Symmetric Difference
+    let symmetric = new Set(
+        [...union].filter(x => !(A.has(x) && B.has(x)))
+    );
+
+    // Display results
+    document.getElementById("output").innerHTML = `
+
+        <h3>Course Registration Results</h3>
+
+        <b>Student A:</b> ${[...A].join(", ")}<br><br>
+
+        <b>Student B:</b> ${[...B].join(", ")}<br><br>
+
+        <b>Union:</b> ${[...union].join(", ")}<br><br>
+
+        <b>Intersection:</b>
+        ${[...intersection].join(", ") || "None"}<br><br>
+
+        <b>Difference (A - B):</b>
+        ${[...difference].join(", ") || "None"}<br><br>
+
+        <b>Symmetric Difference:</b>
+        ${[...symmetric].join(", ") || "None"}
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
